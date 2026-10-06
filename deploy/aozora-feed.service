@@ -1,0 +1,23 @@
+# /etc/systemd/system/aozora-feed.service に設置。
+# 専用ユーザー aozora と /opt/aozora-feed のチェックアウトを事前に用意する。
+[Unit]
+Description=Aozora Japanese Bluesky feed generator
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=aozora
+WorkingDirectory=/opt/aozora-feed
+EnvironmentFile=/opt/aozora-feed/.env
+ExecStart=/opt/aozora-feed/.venv/bin/aozora-feed
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/aozora-feed/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

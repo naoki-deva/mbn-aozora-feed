@@ -1,0 +1,4 @@
+# feeds.example.com を実際の FEED_HOSTNAME に変更する。
+feeds.example.com {
+    reverse_proxy 127.0.0.1:8000
+}
